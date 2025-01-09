@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Cadastro'); ?>
 
 <?php $__env->startSection('content'); ?>

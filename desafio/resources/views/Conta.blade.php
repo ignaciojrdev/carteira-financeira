@@ -60,7 +60,7 @@
                             <!-- Botões de Ação -->
                             <button class="btn btn-success btn-sm btn-transferir" data-id="{{ $conta->conta_id }}">Transferir</button>
                             <button class="btn btn-success btn-sm btn-depositar" data-id="{{ $conta->conta_id }}">Depositar</button>
-                            <a href="{{ route('transferencia.desfazer', ['conta_id' => $conta->conta_id]) }}" class="btn btn-warning btn-sm">Operações</a>
+                            <a href="{{ route('transferencia.desfazer', ['conta_id' => $conta->conta_id]) }}" class="btn btn-warning btn-sm">Visualizar operações</a>
                         </div>
                     </div>
 

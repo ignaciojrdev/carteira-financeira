@@ -13,9 +13,9 @@
                     <div class="card-body">
                         <h4>Tecnologias desejadas:</h4>
                         <ul>
-                            <li>PHP - ok</li>
-                            <li>Laravel - ok</li>
-                            <li>SQL - ok</li>
+                            <li>PHP</li>
+                            <li>Laravel</li>
+                            <li>SQL</li>
                         </ul>
 
                         <h4>Para o dia da entrevista técnica:</h4>

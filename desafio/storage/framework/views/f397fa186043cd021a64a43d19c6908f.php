@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Conta Bancária'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -63,7 +61,7 @@
                             <!-- Botões de Ação -->
                             <button class="btn btn-success btn-sm btn-transferir" data-id="<?php echo e($conta->conta_id); ?>">Transferir</button>
                             <button class="btn btn-success btn-sm btn-depositar" data-id="<?php echo e($conta->conta_id); ?>">Depositar</button>
-                            <a href="<?php echo e(route('transferencia.desfazer', ['conta_id' => $conta->conta_id])); ?>" class="btn btn-warning btn-sm">Operações</a>
+                            <a href="<?php echo e(route('transferencia.desfazer', ['conta_id' => $conta->conta_id])); ?>" class="btn btn-warning btn-sm">Visualizar operações</a>
                         </div>
                     </div>
 

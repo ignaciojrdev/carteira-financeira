@@ -184,3 +184,56 @@ Utilizar o Docker oferece várias vantagens, tanto para desenvolvedores quanto p
 - **Facilidade no deploy**: A automação de ambientes de produção e a criação de pipelines de CI/CD são facilitadas, tornando o processo de entrega de software mais rápido e confiável.
 
 Com o Docker, as equipes podem simplificar o desenvolvimento, garantir consistência em diferentes ambientes e aumentar a eficiência de suas operações.
+
+
+# Como funciona a aplicação **Carteira Financeira**
+
+## **Objetivo**  
+O sistema **Carteira Financeira** foi desenvolvido com o propósito de simular uma interface funcional equivalente a uma carteira financeira, permitindo que os usuários realizem transferências de saldo, depósitos e acompanhem suas operações de forma segura e eficiente.
+
+---
+
+## **Fluxo de Uso do Sistema**  
+
+1. **Cadastro de Usuário**  
+   - Ao inicializar o sistema, não haverá dados relacionados a usuários no banco de dados.  
+   - Para começar, clique no botão **Entrar** e, em seguida, acesse a opção **Cadastrar-se**.  
+   - Preencha o formulário com **nome**, **e-mail**, **senha** e **confirmação de senha**.  
+   - Após o cadastro, você será automaticamente redirecionado para a tela de **Contas Bancárias**, onde uma conta inicial será criada para você.
+
+2. **Tela de Contas Bancárias**  
+   Na tela de **Contas Bancárias**, você terá acesso a quatro ações principais:  
+   
+   ### **1. Transferir**
+   - Permite transferir valores entre contas do mesmo usuário ou para contas de outros usuários.  
+   - **Regras:**  
+     - O valor da transferência deve ser menor ou igual ao saldo disponível na conta.  
+   
+   ### **2. Depositar**
+   - Permite inserir valores em uma conta específica.  
+   - Caso a conta esteja com saldo negativo, o depósito será somado ao saldo atual, cobrindo o valor negativo.  
+
+   ### **3. Visualizar Operações**
+   - Redireciona para uma tela onde você pode visualizar todas as operações realizadas:  
+     - **Depósitos**  
+     - **Recebimento de transferências**  
+     - **Envio de transferências**  
+   - Nessa tela, você terá a opção de **desfazer uma operação**, desde que:  
+     - O saldo da conta seja suficiente para reverter a operação.
+
+   ### **4. Cadastrar Nova Conta**
+   - Permite criar uma nova conta bancária, caso o usuário precise gerenciar mais de uma conta.  
+
+---
+
+## **Requisitos Funcionais**  
+- Criar cadastro de usuários.  
+- Implementar autenticação de usuários.  
+- Permitir transferência de valores entre contas (mesmo usuário e usuários diferentes).  
+- Validar saldo antes de realizar transferências.  
+- Permitir depósitos em contas bancárias.  
+- Garantir a reversão de transferências ou depósitos em caso de inconsistência ou por solicitação do usuário.  
+
+---
+
+Este sistema foi projetado para garantir segurança, consistência e facilidade de uso ao gerenciar finanças pessoais de maneira digital.
