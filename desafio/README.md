@@ -30,7 +30,7 @@ cd .\carteira-financeira\desafio\
 docker compose up -d
 ```
 
-Caso utilize o linux, verifique se o Docker está ativo com o comando e ai inicie os containers com o mesmo comando do tópico 3:
+Caso utilize o linux, verifique se o Docker está ativo com o comando e ai inicie os containers com o mesmo comando do passo 3:
 ```bash
 sudo systemctl start docker
 ```
