@@ -1,47 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    image: laravel-app
+    ports:
+      - "8000:9000"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+    networks:
+      - app-network
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=laravel
+      - DB_USERNAME=laraveluser
+      - DB_PASSWORD=secret
+
+  db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: laraveluser
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: laravel
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
 networks:
-    carteira:
-        name: carteira
+  app-network:
+    driver: bridge
 
-services:    
-    php-apache:
-        image: webdevops/php-apache-dev:8.2-alpine
-        container_name: api-laravel-back
-        restart: always
-        ports:
-            - "80:80"
-        volumes:
-            - ./:/app
-        environment:
-            WEB_DOCUMENT_ROOT: /app/public
-        depends_on:
-            - postgresqldb
-        networks:
-            carteira:
-                aliases:
-                    - api-laravel-back
-
-    postgresqldb:
-        image: postgres:${POSTGRESQL_VERSION}
-        container_name: postgresql
-        restart: always
-        ports:
-            - "5432:5432"
-        volumes:
-            - ./postgresql/scripts:/docker-entrypoint-initdb.d/
-            - ./postgresql/data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
-        networks:
-            - carteira
-
-    portainer:
-        image: portainer/portainer
-        container_name: portainer
-        command: -H unix:///var/run/docker.sock
-        restart: always
-        ports:
-            - 9000:9000
-            - 8000:8000
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./portainer_data:/data
+volumes:
+  postgres_data:
