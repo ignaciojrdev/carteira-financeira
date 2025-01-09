@@ -63,7 +63,12 @@ php artisan key:generate
 php artisan migrate
 ```
 
-10. Inicie o servidor de desenvolvimento:
+10. Execute os testes da aplicação:
+```bash
+php artisan test
+```
+
+11. Inicie o servidor de desenvolvimento:
 ```bash
 php artisan serve
 ```
