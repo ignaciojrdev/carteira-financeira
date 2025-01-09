@@ -25,9 +25,14 @@ git clone https://github.com/v1ncer3/carteira-financeira.git
 cd .\carteira-financeira\desafio\
 ```
 
-3. Inicie os containers Docker:
+3. Inicie o Docker e depois inicie os containers Docker:
 ```bash
 docker compose up -d
+```
+
+Caso utilize o linux, verifique se o Docker está ativo com o comando e ai inicie os containers com o mesmo comando do tópico 3:
+```bash
+sudo systemctl start docker
 ```
 
 4. Acesse o container da API Laravel:
