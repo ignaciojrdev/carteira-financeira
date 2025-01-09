@@ -45,13 +45,13 @@ docker exec -it api-laravel-back sh
 cd app
 ```
 
-6. Instale as dependências do projeto:
+6. Crie o arquivo `.env` na raiz do projeto. Para facilitar o teste e uso da aplicação, disponibilizei algumas informações necessárias para a execução e funcionamento correto da aplicação (e consideradas sensíveis) no arquivo para quem quiser. Caso contrário, fique a vontade para parametrizar tanto o .env, quanto o restante de toda a aplicação (dockerfile, docker-composer e afins)::
+- Copie o conteúdo do arquivo `.env.example` e renomeie para `.env`.
+
+7. Instale as dependências do projeto:
 ```bash
 composer install
 ```
-
-7. Crie o arquivo `.env` na raiz do projeto:
-- Copie o conteúdo do arquivo `.env.example` e renomeie para `.env`.
 
 8. Gere a chave da aplicação:
 ```bash
