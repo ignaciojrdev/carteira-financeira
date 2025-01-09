@@ -13,7 +13,7 @@ class Conta extends Model
 
     protected $fillable = [
         'user_id',
-        'saldo',
+        'saldo'
     ];
 
     // Relação de muitos-para-um com a tabela 'users'

@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransferenciaRequest;
+use App\Services\TransferenciaService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Conta;
 use App\Models\Transferencia;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
-
 
 class TransferenciaController extends Controller
 {
+    protected $transferenciaService;
+
+    public function __construct(TransferenciaService $transferenciaService)
+    {
+        $this->transferenciaService = $transferenciaService;
+    }
+
     public function index($conta_id){
         $contas = Conta::where('user_id', auth()->id())
                         ->where('conta_id', $conta_id)
@@ -46,69 +53,22 @@ class TransferenciaController extends Controller
         return redirect()->route('conta')->with('success', 'Deposito realizado com sucesso!');
     }
 
-    public function transferir(Request $request)
+    public function transferir(TransferenciaRequest $request)
     {
-        $this->limparSessionMessage();
-        $user_id_recebimento = null;
-        $validated = $request->validate([
-            'origem_conta_id' => 'required|exists:conta,conta_id',
-            'destino_conta_id' => 'required|exists:conta,conta_id',
-            'valor' => 'required|numeric|min:0.01',
-            'usuario_codigo' => 'nullable|exists:users,id'
-        ], [
-            'origem_conta_id.exists' => 'A conta de origem não existe no sistema.',
-            'destino_conta_id.exists' => 'A conta de destino não existe no sistema.',
-            'valor.required' => 'O valor da transferência é obrigatório.',
-            'valor.numeric' => 'O valor da transferência deve ser numérico.',
-            'valor.min' => 'O valor da transferência deve ser maior que 0.',
-        ]);
-        
-        if($request->usuario_codigo){
-            $contaOrigem = $this->buscarContaUsuarioOrigem($request->origem_conta_id);
-            $contaDestino = $this->buscarContaUsuarioDestino($request->usuario_codigo, $request->destino_conta_id);
+        $validated = $request->validated();
 
-            if(!$contaDestino){
-                return redirect()->route('conta')->with('error', 'O usuário de destino não tem a conta informada.');
-            }
+        try {
+            $this->transferenciaService->realizarTransferencia(
+                $validated['origem_conta_id'],
+                $validated['destino_conta_id'],
+                $validated['valor']
+            );
 
-            if (($contaOrigem->saldo < $request->valor)) {
-                return redirect()->route('conta')->with('error', 'Saldo insuficiente para realizar a transferência!');
-            }
-
-            $contaOrigem->saldo -= $request->valor;
-            $contaDestino->saldo += $request->valor;
-            $user_id_recebimento = $contaDestino->user_id;
-            $contaOrigem->save();
-            $contaDestino->save();
-        }else{
-            if($request->origem_conta_id == $request->destino_conta_id){
-                return redirect()->route('conta')->with('warning', 'Operação não foi realizada! Não é permitido que a conta de origem seja a mesma de destino.');
-            }
-    
-            $contaOrigem = $this->buscarContaUsuarioOrigem($request->origem_conta_id);
-            $contaDestino = $this->buscarContaUsuarioOrigem($request->destino_conta_id);
-    
-            if (($contaOrigem->saldo < $request->valor)) {
-                return redirect()->route('conta')->with('error', 'Saldo insuficiente para realizar a transferência!');
-            }
-    
-            $contaOrigem->saldo -= $request->valor;
-            $contaDestino->saldo += $request->valor;
-            $user_id_recebimento = auth()->id();
-            $contaOrigem->save();
-            $contaDestino->save();
+            return redirect()->route('conta')
+                 ->with('success', 'Transferência realizada com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->route('conta')->with('error', $e->getMessage());
         }
-
-        
-        $transferencia = Transferencia::create([
-            'conta_id_envio' => $request->origem_conta_id,
-            'conta_id_recebimento' => $request->destino_conta_id,
-            'saldo_transferencia' => $request->valor,
-            'user_id_envio' => auth()->id(),
-            'user_id_recebimento' => $user_id_recebimento,
-        ]);
-
-        return redirect()->route('conta')->with('success', 'Transferência realizada com sucesso.');
     }
 
     private function limparSessionMessage(){
@@ -120,7 +80,6 @@ class TransferenciaController extends Controller
     public function exibirTransferencias()
     {
         $transferencias = Transferencia::where('desfeita', false)->get();
-
         return view('Transferencia', ['transferencias' => $transferencias]);
     }
 
@@ -128,31 +87,25 @@ class TransferenciaController extends Controller
     {
         $transferencia = Transferencia::find($id);
 
-        if (!$transferencia) {
-            return redirect()->back()->with('error', 'Transferência não encontrada.');
+        if (!$transferencia || $transferencia->desfeita) {
+            return redirect()->route('conta')->with('error', 'Transferência não encontrada ou já desfeita.');
         }
 
         $contaEnvio = Conta::find($transferencia->conta_id_envio);
         $contaRecebimento = Conta::find($transferencia->conta_id_recebimento);
 
-        if (!$contaRecebimento) {
+        if (!$contaRecebimento || !$this->existeSaldoParaDevolucao($contaRecebimento->saldo, $transferencia->saldo_transferencia)) {
             return redirect()->route('conta')->with('error', 'Erro ao desfazer transferência, saldo insuficiente!');
         }
-        if(!$this->existeSaldoParaDevolucao($contaRecebimento->saldo, $transferencia->saldo_transferencia)){
-            return redirect()->route('conta')->with('error', 'Erro ao desfazer transferência, saldo insuficiente!');
-        }
-        
-        if($contaEnvio){
+
+        if ($contaEnvio) {
             $contaEnvio->saldo += $transferencia->saldo_transferencia;
-            $contaRecebimento->saldo -= $transferencia->saldo_transferencia;
-            $transferencia->update(['desfeita' => true]);
-            $contaEnvio->save();
-            $contaRecebimento->save();
-        }else{
-            $contaRecebimento->saldo -= $transferencia->saldo_transferencia;
-            $transferencia->update(['desfeita' => true]);
-            $contaRecebimento->save();
         }
+        $contaRecebimento->saldo -= $transferencia->saldo_transferencia;
+
+        $transferencia->update(['desfeita' => true]);
+        $contaEnvio?->save();
+        $contaRecebimento->save();
 
         return redirect()->route('conta')->with('success', 'Transferência desfeita com sucesso.');
     }
@@ -162,14 +115,6 @@ class TransferenciaController extends Controller
             return false;
         }
         return true;
-    }
-
-    private function buscarContaUsuarioOrigem($id_origem){
-        return Conta::where('conta_id', $id_origem)->where('user_id', auth()->id())->first();
-    }
-
-    private function buscarContaUsuarioDestino($user_id_destino, $conta_destino){
-        return Conta::where('conta_id', $conta_destino)->where('user_id', $user_id_destino)->first();
     }
 
 }

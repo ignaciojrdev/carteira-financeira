@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 class ContaController extends Controller
 {
     public function index(){
-        //$this->limparSessionMessage();
         $contas = Conta::where('user_id', auth()->id())->orderBy('conta_id', 'asc')->get();
         return view('conta', ['contas' => $contas, 'transferencias' => []]);
     }

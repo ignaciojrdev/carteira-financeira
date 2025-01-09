@@ -85,7 +85,7 @@
                         <div class="d-flex gap-2">
                             <input type="number" name="destino_conta_id" placeholder="Código da conta destino" class="form-control form-control-sm" step="1" min="1" required>
                             <input type="number" name="valor" placeholder="Informe o valor da transferência" class="form-control form-control-sm" step="0.01" min="0.01" required>
-                            <input type="number" name="usuario_codigo" placeholder="Código do usuário (opcional)" class="form-control form-control-sm" step="1" min="1">
+                            <input type="number" name="usuario_codigo" placeholder="Código do usuário externo (opcional)" class="form-control form-control-sm" step="1" min="1">
                             <button type="submit" class="btn btn-sm btn-success">Confirmar Transferência</button>
                             <button type="button" class="btn btn-sm btn-danger btn-cancelar">Cancelar</button>
                         </div>
