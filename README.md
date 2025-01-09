@@ -148,3 +148,37 @@ PostgreSQL tem uma comunidade muito ativa e vasta documentação, facilitando a 
 
 ### 5. Desempenho
 O PostgreSQL é otimizado para consultas complexas e de alto desempenho, com suporte a índices avançados, como índices GIN, GiST e BRIN, garantindo uma performance excelente mesmo em bases de dados muito grandes.
+
+## Docker
+
+O **Docker** é uma plataforma open-source que automatiza o processo de construção, envio e execução de aplicações dentro de containers. Um container é uma unidade leve, portátil e autossuficiente que inclui tudo o que a aplicação precisa para rodar, como código, bibliotecas, dependências e configurações. Isso garante que a aplicação tenha o mesmo comportamento em diferentes ambientes, desde desenvolvimento até produção.
+
+### Como o Docker Funciona
+
+- **Container**: O container Docker é uma instância isolada que contém tudo o que a aplicação precisa para ser executada. Ele compartilha o mesmo sistema operacional do host, mas é isolado de outros containers e do próprio sistema.
+  
+- **Imagem**: A imagem Docker é um arquivo imutável que contém a configuração do container, incluindo o sistema operacional, dependências e o código da aplicação. As imagens podem ser versionadas e compartilhadas, facilitando a reutilização e a padronização de ambientes.
+
+- **Docker Engine**: O Docker Engine é o motor de execução dos containers. Ele pode ser instalado em diferentes sistemas operacionais como Linux, Windows e macOS.
+
+### Motivação para Utilizar o Docker
+
+Utilizar o Docker oferece várias vantagens, tanto para desenvolvedores quanto para equipes de operações (DevOps):
+
+#### 1. **Portabilidade**
+- **Consistência entre ambientes**: O Docker garante que a aplicação será executada da mesma maneira em qualquer lugar, seja em máquinas locais, servidores de teste ou produção. Isso resolve problemas de inconsistência entre ambientes, como a famosa frase "funcionou na minha máquina".
+- **Imagens reutilizáveis**: As imagens Docker podem ser versionadas e compartilhadas facilmente, facilitando a colaboração entre equipes e a padronização dos ambientes de desenvolvimento.
+
+#### 2. **Isolamento**
+- **Ambientes isolados**: Cada container é executado de maneira isolada, o que permite rodar múltiplos containers com diferentes versões de dependências ou até diferentes aplicações, sem interferência entre eles.
+- **Redução de conflitos**: Isso evita conflitos de dependências ou versões de software entre projetos diferentes.
+
+#### 3. **Eficiência e Escalabilidade**
+- **Menor consumo de recursos**: Containers são mais leves que máquinas virtuais, pois compartilham o mesmo kernel do sistema operacional, permitindo rodar mais containers no mesmo hardware.
+- **Escalabilidade facilitada**: O Docker torna fácil a criação de arquiteturas escaláveis. Ferramentas como **Docker Compose** e **Kubernetes** podem ser usadas para orquestrar containers em larga escala.
+
+#### 4. **Automação de Desenvolvimento e Deploy**
+- **Ambientes de desenvolvimento consistentes**: O Docker permite que todos os desenvolvedores tenham o mesmo ambiente, garantindo que a aplicação se comporte de maneira consistente em todas as máquinas.
+- **Facilidade no deploy**: A automação de ambientes de produção e a criação de pipelines de CI/CD são facilitadas, tornando o processo de entrega de software mais rápido e confiável.
+
+Com o Docker, as equipes podem simplificar o desenvolvimento, garantir consistência em diferentes ambientes e aumentar a eficiência de suas operações.
