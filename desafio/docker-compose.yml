@@ -19,9 +19,9 @@ services:
     image: postgres:13
     container_name: postgres-db
     environment:
-      POSTGRES_USER: laraveluser
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: laravel
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
