@@ -35,7 +35,7 @@
                             <li class="nav-item">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger navbar-btn">Logout</button>
+                                    <button type="submit" class="btn btn-danger navbar-btn">Logout: {{ Auth::user()->name }}</button>
                                 </form>
                             </li>
                         @else

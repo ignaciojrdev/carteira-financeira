@@ -35,8 +35,10 @@
 
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Minhas Contas Bancárias</h1>
-        
+        <div>
+            <h3>Contas de <?php echo e(Auth::user()->name); ?></h3>
+            <p class="text-muted small">Nº do usuário: <?php echo e(Auth::user()->id); ?> - Utilize ele para receber como um usuário externo</p>
+        </div>
         <form action="<?php echo e(route('conta.criar')); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <button type="submit" class="btn btn-info btn-sm">Cadastrar Nova Conta</button>
@@ -49,11 +51,12 @@
         </div>
     <?php else: ?>
         <div class="list-group">
+            <p class="text-muted small">Resultados encontrados: <?php echo e(sizeof($contas)); ?></p>
             <?php $__currentLoopData = $contas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $conta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="list-group-item d-flex flex-column gap-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5>Código da Conta: <?php echo e($conta->conta_id); ?></h5>
+                            <h5>Número da Conta: <?php echo e($conta->conta_id); ?></h5>
                             <p><strong>Saldo Atual:</strong> R$ <?php echo e(number_format($conta->saldo, 2, ',', '.')); ?></p>
                         </div>
 

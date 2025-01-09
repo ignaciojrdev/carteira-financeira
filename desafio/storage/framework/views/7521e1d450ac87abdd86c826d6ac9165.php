@@ -35,7 +35,7 @@
                             <li class="nav-item">
                                 <form action="<?php echo e(route('logout')); ?>" method="POST">
                                     <?php echo csrf_field(); ?>
-                                    <button type="submit" class="btn btn-danger navbar-btn">Logout</button>
+                                    <button type="submit" class="btn btn-danger navbar-btn">Logout: <?php echo e(Auth::user()->name); ?></button>
                                 </form>
                             </li>
                         <?php else: ?>
