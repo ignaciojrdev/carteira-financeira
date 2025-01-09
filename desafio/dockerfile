@@ -1,5 +1,5 @@
-# Usando a imagem oficial do PHP
-FROM php:8.2.27-fpm
+# Usando a imagem PHP com Apache
+FROM php:8.2.27-apache
 
 # Instalar dependências necessárias
 RUN apt-get update && apt-get install -y \
@@ -16,10 +16,7 @@ RUN apt-get update && apt-get install -y \
 # Instalar o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Defina o diretório de trabalho no container
-WORKDIR /app
-
-# Definir o diretório de trabalho para o projeto Laravel
+# Definir o diretório de trabalho no container
 WORKDIR /var/www/html
 
 # Copiar os arquivos do projeto para dentro do contêiner
@@ -28,8 +25,8 @@ COPY . /var/www/html/
 # Instalar as dependências do Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Expor a porta para o servidor web
-EXPOSE 9000
+# Expor a porta para o servidor Apache (80)
+EXPOSE 80
 
-# Iniciar o PHP-FPM
-CMD ["php-fpm"]
+# Iniciar o Apache (com PHP)
+CMD ["apache2-foreground"]

@@ -1,25 +1,19 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: laravel-app
-    image: laravel-app
+
+  php-apache:
+    image: webdevops/php-apache-dev:8.2-alpine
+    container_name: api-laravel-back
+    restart: always
     ports:
-      - "8000:9000"
+      - "80:80"  # Expondo a porta 80
     volumes:
-      - .:/var/www
-    depends_on:
-      - db
-    networks:
-      - app-network
+      - .:/app  # Montando o diretório do projeto no contêiner
     environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_DATABASE=laravel
-      - DB_USERNAME=laraveluser
-      - DB_PASSWORD=secret
+      WEB_DOCUMENT_ROOT: /app/public  # Configurando a raiz do documento como a pasta 'public' do Laravel
+    depends_on:
+      - db  # Alterado para 'db' (nome correto do serviço do PostgreSQL)
+    networks:
+      - app-network  # Certificando-se de que a rede 'app-network' está sendo usada
 
   db:
     image: postgres:13
@@ -31,13 +25,26 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - app-network
+      - app-network  # Usando a mesma rede para comunicação
     ports:
-      - "5432:5432"
+      - "5432:5432"  # Porta para o PostgreSQL
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9001:9000"  # Acessar Portainer no navegador
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Acesso ao Docker daemon
+      - portainer_data:/data  # Armazenar dados do Portainer
+    networks:
+      - app-network
+    restart: always
 
 networks:
   app-network:
-    driver: bridge
+    driver: bridge  # Certificando-se de que todos os serviços estão usando a mesma rede
 
 volumes:
   postgres_data:
+  portainer_data:
