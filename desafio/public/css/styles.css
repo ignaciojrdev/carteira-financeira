@@ -1,0 +1,43 @@
+/* Estilizando o header e footer com a mesma cor de fundo */
+header, footer {
+    background-color: #333; /* Cor de fundo escura */
+    color: #fff; /* Texto branco */
+}
+
+/* Fixando o footer no final da tela */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+/* Estilos do menu de navegação */
+header .navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+header .navbar-nav .nav-link:hover {
+    color: #ddd !important;
+}
+
+/* Ajustes para a logo */
+header .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff !important; /* Forçando a cor da logo para branco */
+}
+
+header .navbar-brand:hover {
+    color: #ddd !important; /* Cor ao passar o mouse */
+}
