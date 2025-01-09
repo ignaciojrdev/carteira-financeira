@@ -72,8 +72,7 @@ Após executar o comando `php artisan serve`, a aplicação estará disponível 
 - Certifique-se de que as portas necessárias para o Docker e o Laravel não estejam em uso por outros serviços.
 - Para quaisquer dúvidas ou problemas, consulte a documentação oficial do [Laravel](https://laravel.com/docs) ou do [Docker](https://docs.docker.com/).
 
-# Motivações do uso do laravel
-## Por que Laravel?
+# Laravel
 
 ### 1. Facilidade de Uso
 O Laravel possui uma sintaxe expressiva e intuitiva, permitindo um desenvolvimento rápido e sem complicações. A estrutura organizada e os recursos como roteamento, autenticação e validação prontos para uso ajudam a manter o código limpo e fácil de manter.
@@ -132,7 +131,7 @@ Um atacante pode inserir um script malicioso em um campo de comentário, como:
 ### 5. Suporte à Testabilidade
 Laravel facilita a criação de testes automatizados com integração fácil ao PHPUnit, permitindo que desenvolvedores escrevam testes unitários e de integração de forma simples. Isso garante maior confiabilidade e ajuda a manter a qualidade do código a longo prazo.
 
-## Por que PostgreSQL?
+# PostgreSQL
 
 ### 1. Robustez e Escalabilidade
 O PostgreSQL é um sistema de gerenciamento de banco de dados relacional altamente confiável e robusto, com suporte a grandes volumes de dados e a operações complexas. Ele é ideal para sistemas em crescimento, oferecendo alta escalabilidade sem perda de performance.
@@ -149,7 +148,7 @@ PostgreSQL tem uma comunidade muito ativa e vasta documentação, facilitando a 
 ### 5. Desempenho
 O PostgreSQL é otimizado para consultas complexas e de alto desempenho, com suporte a índices avançados, como índices GIN, GiST e BRIN, garantindo uma performance excelente mesmo em bases de dados muito grandes.
 
-## Docker
+# Docker
 
 O **Docker** é uma plataforma open-source que automatiza o processo de construção, envio e execução de aplicações dentro de containers. Um container é uma unidade leve, portátil e autossuficiente que inclui tudo o que a aplicação precisa para rodar, como código, bibliotecas, dependências e configurações. Isso garante que a aplicação tenha o mesmo comportamento em diferentes ambientes, desde desenvolvimento até produção.
 
@@ -160,8 +159,6 @@ O **Docker** é uma plataforma open-source que automatiza o processo de constru�
 - **Imagem**: A imagem Docker é um arquivo imutável que contém a configuração do container, incluindo o sistema operacional, dependências e o código da aplicação. As imagens podem ser versionadas e compartilhadas, facilitando a reutilização e a padronização de ambientes.
 
 - **Docker Engine**: O Docker Engine é o motor de execução dos containers. Ele pode ser instalado em diferentes sistemas operacionais como Linux, Windows e macOS.
-
-### Motivação para Utilizar o Docker
 
 Utilizar o Docker oferece várias vantagens, tanto para desenvolvedores quanto para equipes de operações (DevOps):
 
