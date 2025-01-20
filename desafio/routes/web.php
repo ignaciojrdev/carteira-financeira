@@ -22,6 +22,6 @@ Route::post('/Conta/Cadastrar', [ContaController::class, 'criar'])->middleware('
 
 Route::post('/Conta/Depositar', [TransferenciaController::class, 'depositar'])->middleware('auth')->name('transferencia.depositar');
 Route::post('/Conta/Transferir', [TransferenciaController::class, 'transferir'])->middleware('auth')->name('transferencia.transferir');
-Route::get('/Conta/transferencias', [TransferenciaController::class, 'exibirTransferencias'])->name('transferencia.transfererir');
-Route::get('/Conta/Desfazer/{conta_id}', [TransferenciaController::class, 'index'])->name('transferencia.index');
-Route::post('/Conta/Desfazer/{conta_id}', [TransferenciaController::class, 'desfazerTransferencia'])->name('transferencia.desfazer');
+Route::get('/Conta/transferencias', [TransferenciaController::class, 'exibirTransferencias'])->middleware('auth')->name('transferencia.transfererir');
+Route::get('/Conta/Desfazer/{conta_id}', [TransferenciaController::class, 'index'])->middleware('auth')->name('transferencia.index');
+Route::post('/Conta/Desfazer/{conta_id}', [TransferenciaController::class, 'desfazerTransferencia'])->middleware('auth')->name('transferencia.desfazer');
