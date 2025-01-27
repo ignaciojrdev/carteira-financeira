@@ -17,7 +17,7 @@ Siga os passos abaixo para configurar e executar o projeto:
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/v1ncer3/carteira-financeira.git
+git clone https://github.com/ignaciojrdev/carteira-financeira.git
 ```
 
 2. Navegue até o diretório do desafio:
