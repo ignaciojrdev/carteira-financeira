@@ -1,6 +1,6 @@
 # Carteira Financeira
 
-Este repositório contém o projeto **Carteira Financeira**, desenvolvido com Laravel e utilizando Docker para gerenciamento do ambiente.
+Este repositório contém o projeto **Carteira Financeira**, desenvolvido com Laravel e utilizando PostgreSql como ferramenta de banco de dados e Docker para gerenciamento do ambiente.
 
 ## Pré-requisitos
 
